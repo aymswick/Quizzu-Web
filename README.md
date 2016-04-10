@@ -1,5 +1,5 @@
 # Quizzu-Web
-The web application for Quizzu. 
+The web application for Quizzu.
 
 This Material **start** project is a *seed* for AngularJS Material applications. The project contains a sample AngularJS application and is pre-configured to install the Angular framework and a bunch of development and testing tools for instant web development gratification.
 
