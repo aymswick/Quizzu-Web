@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" >
   <head>
-    <title>Angular Material - Starter App</title>
+    <title>Quizzu</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,7 +23,7 @@
 
   </head>
 
-  <body ng-app="starterApp" layout="row" ng-controller="UserController as ul" ng-cloak >
+  <body ng-app="quizzuApp" layout="row" ng-controller="UserController as ul" ng-cloak >
 
   <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
       md-component-id="left"
@@ -77,10 +77,11 @@
     <script src="./src/users/UserController.js"></script>
     <script src="./src/users/UserService.js"></script>
 
+    <!--The Application-Wide Angular Module is Defined Here -->
     <script type="text/javascript">
 
           angular
-              .module('starterApp', ['ngMaterial', 'users'])
+              .module('quizzuApp', ['ngMaterial', 'users']) //Dependencies
               .config(function($mdThemingProvider, $mdIconProvider){
 
                   $mdIconProvider
@@ -92,9 +93,14 @@
                       .icon("twitter"    , "./assets/svg/twitter.svg"     , 512)
                       .icon("phone"      , "./assets/svg/phone.svg"       , 512);
 
+                      var quizzuGreenMap = $mdThemingProvider.extendPalette('green', {
+                        '500': '27ae60',
+                        'contrastDefaultColor': 'light'
+
+                      });
+                      $mdThemingProvider.definePalette('quizzuGreen', quizzuGreenMap);
                       $mdThemingProvider.theme('default')
-                          .primaryPalette('brown')
-                          .accentPalette('red');
+                        .primaryPalette('quizzuGreen')
 
               });
 
