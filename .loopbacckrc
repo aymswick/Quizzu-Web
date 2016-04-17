@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "mongodb": {
+            "host": "127.0.0.1",
+            "database": "login",
+            "username": "myAdminUser",
+            "password": "th1s1sR()()T",
+            "port": 27017
+        }
+    },
+    "test": {
+        "mongodb": {
+            "host": "127.0.0.1",
+            "database": "login",
+            "username": "myAdminUser",
+            "password": "th1s1sR()()T",
+            "port": 27017
+        }
+    }
+}

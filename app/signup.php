@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <title>Quizzu</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+
+<!--------------- bootstrap login thing ---------------------->
+  <link href="assets/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="assets/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/signin.css" rel="stylesheet">
+
+
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="assets/app.css"/>
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+
+  </head>
+
+  <body >
+
+ <md-toolbar layout="row" class="md-whiteframe-z1">
+      <md-button id="main" class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
+        <md-icon md-svg-icon="menu" ></md-icon>
+      </md-button>
+      <h3>Quizzu</h3>
+    </md-toolbar>
+
+
+
+  <div class="container">
+
+      <form class="form-signin"for id="signupForm" method="post" action = createAccount.php>
+        <h2 class="form-signin-heading">Create an Account</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" name="signupEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" iname="signupEmail" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Create Free Account</button>
+      </form>
+
+
+
+    </div> <!-- /container -->
+
+
+  </body>
+</html>
