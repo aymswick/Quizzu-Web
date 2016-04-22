@@ -46,22 +46,38 @@ app.controller('SideNavController', function($scope, $mdSidenav) {
 
 });
 
-app.controller('CardController', function() {
+app.controller('CardController', function($scope) {
   //Variables
-  this.cardNumber = 1;
-  this.cards = [{
-    title: 'Welcome to Quizzu,'
+  $scope.cards = [{
+    title: 'Welcome to Quizzu,',
+    subtitle: 'the social trivia game for college students!',
+    pic: ''
 
+  },
 
-  }];
+  {
+    title: 'Card number 2',
+    subtitle:'subtitle 2',
+    pic: ''
+  },
 
-  //Methods
-  this.setCard = function(selectedCard) {
-    this.cardNumber = selectedCard;
-  };
-
-  this.nextCard = function(cardNum) {
-    this.cardNumber = cardNum +1;
+  {
+    title: 'Card number 3',
+    subtitle: 'subtitle 3',
+    pic: ''
   }
+
+  ];
+
+  $scope.current = 0;
+
+  $scope.nextCard = function() {
+    $scope.current = ($scope.current + 1) % $scope.cards.length;
+  }
+
+  $scope.previousCard = function() {
+    $scope.current = ($scope.current - 1);
+  }
+
 
 })

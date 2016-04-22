@@ -77,11 +77,11 @@
         <!-- Instructional Cards! -->
         <div flex flex-xs flex-gt-xs="50" layout="row"
              layout-align="center top" ng-controller="CardController as cc">
-        <md-card flex md-theme="default" ng-repeat="card in cc.cards">
+        <md-card flex md-theme="default">
           <md-card-title>
             <md-card-title-text>
-              <span class="md-headline">{{card.title}}</span>
-              <span class="md-subhead">the social trivia game for college students!</span>
+              <span class="md-headline">{{cards[current].title}}</span>
+              <span class="md-subhead">{{cards[current].subtitle}}</span>
             </md-card-title-text>
 
             <md-card-title-media>
@@ -89,6 +89,7 @@
             </md-card-title-media>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-primary" ng-click="previousCard()">Previous</md-button>
             <md-button class="md-raised md-primary" ng-click="nextCard()">Next</md-button>
           </md-card-actions>
         </md-card>
