@@ -37,7 +37,7 @@
 
   <body ng-controller="MainController as mc" layout="column" ng-cloak >
 
-  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+  <div flex layout="column"  tabIndex="-1" role="main" class="md-whiteframe-z2">
 
     <!-- Top Toolbar -->
     <md-toolbar layout="row" class="md-whiteframe-z2">
@@ -52,47 +52,51 @@
 
     </md-toolbar>
 
-    <div flex layout="row">
+
 
     <!-- Sidenav Menu -->
     <md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
       <md-toolbar>
        <h1 class="md-toolbar-tools">Quizzu Menu</h1>
       </md-toolbar>
-      <md-content layout-padding ng-controller="SideNavController">
+      <md-content layout-padding ng-controller="SideNavController as sc">
         <div layout="column" layout-fill layout-align="top center">
-          <md-button class="md-accent md-raised">Home</md-button>
-          <md-button class="md-accent md-raised">About</md-button>
-          <md-button class="md-accent md-raised">Settings</md-button>
+          <md-button class="md-accent md-raised" ng-click="sc.goHome()">Home</md-button>
+          <md-button class="md-accent md-raised" ng-click="sc.goAbout()">About</md-button>
+          <md-button class="md-accent md-raised" ng-click="sc.goSettings()">Settings</md-button>
         </div>
 
       </md-content>
     </md-sidenav>
 
+
     <!-- Main Content of Index Page -->
+    <div flex layout="row" layout-align="center top">
     <md-content flex id="content">
 
-      <div flex-xs flex-gt-xs="50" layout="column">
+        <!-- Instructional Cards! -->
+        <div flex flex-xs flex-gt-xs="50" layout="row"
+             layout-align="center top" ng-controller="CardController as cc">
+        <md-card flex md-theme="default" ng-repeat="card in cc.cards">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">{{card.title}}</span>
+              <span class="md-subhead">the social trivia game for college students!</span>
+            </md-card-title-text>
 
-      <!-- Instructional Cards! -->
-      <md-card flex md-theme="default">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Welcome to Quizzu,</span>
-            <span class="md-subhead">the social trivia game for college students!</span>
-          </md-card-title-text>
+            <md-card-title-media>
+              <div class="md-media-lg card-media">pic here</div>
+            </md-card-title-media>
+          </md-card-title>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised md-primary" ng-click="nextCard()">Next</md-button>
+          </md-card-actions>
+        </md-card>
 
-          <md-card-title-media>
-            <div class="md-media-lg card-media"></div>
-          </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button class="md-raised md-primary">Next</md-button>
-        </md-card-actions>
-      </md-card>
+        </div>
 
-      </div>
-      </div>
+
+      </div> <!-- End Main Content Div -->
 
 
       <md-button class="md-raised md-primary">explode</md-button>
