@@ -5,3 +5,19 @@
 .md-subhead {
   color: #7f8c8d;
 }
+
+.card {
+
+}
+
+.card:hover {
+  transform: rotate(360deg);
+  background: #3498db;
+}
+
+.rotate {
+  transition: all 0.5s ease-in-out;
+}
+.rotate:hover {
+  transition: all 1s ease-in-out;
+}

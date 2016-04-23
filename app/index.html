@@ -73,7 +73,7 @@
 
         <!-- Instructional Cards! -->
         <div flex flex-xs flex-gt-xs="100" layout="row"
-             layout-align="center top" ng-controller="CardController as cc">
+             layout-align="center top" ng-controller="TutorialCardController as tc" ng-hide="loggedIn">
         <md-card flex md-theme="default">
           <md-card-title>
             <md-card-title-text>
@@ -93,11 +93,37 @@
 
         </div>
 
+        <!-- Demo Quiz Cards -->
+        <div flex flex-xs flex-gt-xs="100" layout="row"
+             layout-align="center top" ng-controller="QuizController as quiz" ng-show="demoStart">
+        <md-card flex md-theme="default" class="card rotate">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">{{quizzes[current].title}}</span>
+              <span class="md-subhead">{{quizzes[current].subtitle}}</span>
+            </md-card-title-text>
+
+            <md-card-title-media>
+              <div class="md-media-lg card-media">{{cards[current].pic}}</div>
+            </md-card-title-media>
+          </md-card-title>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-accent" ng-click="pass()">Pass (0pts)</md-button>
+            <md-button class="md-raised md-primary" ng-click="nextCard()">{{quizzes[current].title}}</md-button>
+          </md-card-actions>
+        </md-card>
+
+        </div>
+
+
 
       </div> <!-- End Main Content Div -->
 
 
-      <md-button class="md-raised md-primary">explode</md-button>
+
+
+
+      <md-button class="md-raised md-primary" ng-click="launchDemoQuiz()">Launch Demo Quiz</md-button>
 
     </md-content>
 

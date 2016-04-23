@@ -5,7 +5,7 @@
  *    - Do not make edits to this file, instead do it in controllers.js
  */
 
-var app = angular.module('App', ['ngMaterial']);
+var app = angular.module('App', ['ngMaterial', 'ngAnimate']);
 
 app.config(function($mdThemingProvider, $mdIconProvider){
 

@@ -9,12 +9,20 @@ var app = angular.module('App'); //This line is needed to reference our app.js f
 
 app.controller('MainController', function($scope, $mdSidenav) {
   $scope.data = {message: 'Hello'};
-
+  $scope.loggedIn = false;
+  $scope.demoStart = false;
 
   //This is how we define new functional behavior
   $scope.openLeftMenu = function openLeftMenu() {
     $mdSidenav('left').toggle(); //'left' corresponds to the component id defined in html element
-  }
+  };
+
+  $scope.launchDemoQuiz = function launchDemoQuiz() {
+    $scope.demoStart = true;
+    $scope.loggedIn = true;
+  };
+
+
 });
 
 
@@ -28,22 +36,22 @@ app.controller('SideNavController', function($scope, $mdSidenav) {
     $mdSidenav('left').close(); //Temporary
     window.open(".", "_self")
 
-  }
+  };
 
   this.goAbout = function() {
     //About
     window.open("https://github.com/aymswick/Quizzu-Web/wiki");
-  }
+  };
 
   this.goSettings = function() {
     //Settings
-  }
+  };
 
 
 
 });
 
-app.controller('CardController', function($scope) {
+app.controller('TutorialCardController', function($scope) {
   //Variables
   $scope.buttonText = 'Next';
 
@@ -91,4 +99,27 @@ app.controller('CardController', function($scope) {
   };
 
 
-})
+
+});
+
+app.controller('QuizController', function($scope) {
+
+  /*
+  $scope.quizzes = [{
+    title: 'Software Engineering Basics',
+    questions: [{
+      'For which of the following projects does AGILE seem appropriate?',
+      'What is loose coupling?',
+      'During what phase should unit testing occur?',
+      'What year is it?']
+    }
+
+
+  }]; */
+
+  $scope.nextCard = function() {
+    $scope.current = ($scope.current + 1) % 4; //Each quiz only has 4 questions right now
+  };
+
+
+});
