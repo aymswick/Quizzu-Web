@@ -22,8 +22,6 @@
         }
     </style>
 
-
-
     <script src="../node_modules/angular/angular.js"></script>
     <script src="../node_modules/angular-animate/angular-animate.js"></script>
     <script src="../node_modules/angular-aria/angular-aria.js"></script>
@@ -61,21 +59,20 @@
       </md-toolbar>
       <md-content layout-padding ng-controller="SideNavController as sc">
         <div layout="column" layout-fill layout-align="top center">
-          <md-button class="md-accent md-raised" ng-click="sc.goHome()">Home</md-button>
-          <md-button class="md-accent md-raised" ng-click="sc.goAbout()">About</md-button>
-          <md-button class="md-accent md-raised" ng-click="sc.goSettings()">Settings</md-button>
+          <md-button class="md-accent md-raised" ng-click="sc.goHome()">{{menuItems[0]}}</md-button>
+          <md-button class="md-accent md-raised" ng-click="sc.goAbout()">{{menuItems[1]}}</md-button>
+          <md-button class="md-accent md-raised" ng-click="sc.goSettings()">{{menuItems[2]}}</md-button>
         </div>
-
       </md-content>
     </md-sidenav>
 
 
     <!-- Main Content of Index Page -->
-    <div flex layout="row" layout-align="center top">
+    <div flex layout="row" layout-align="center center">
     <md-content flex id="content">
 
         <!-- Instructional Cards! -->
-        <div flex flex-xs flex-gt-xs="50" layout="row"
+        <div flex flex-xs flex-gt-xs="100" layout="row"
              layout-align="center top" ng-controller="CardController as cc">
         <md-card flex md-theme="default">
           <md-card-title>
@@ -85,12 +82,12 @@
             </md-card-title-text>
 
             <md-card-title-media>
-              <div class="md-media-lg card-media">pic here</div>
+              <div class="md-media-lg card-media">{{cards[current].pic}}</div>
             </md-card-title-media>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button class="md-primary" ng-click="previousCard()">Previous</md-button>
-            <md-button class="md-raised md-primary" ng-click="nextCard()">Next</md-button>
+            <md-button class="md-accent" ng-click="previousCard()">Previous</md-button>
+            <md-button class="md-raised md-primary" ng-click="nextCard()">{{cards[current].button}}</md-button>
           </md-card-actions>
         </md-card>
 
