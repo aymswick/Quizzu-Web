@@ -6,6 +6,11 @@
  */
 
 var app = angular.module('App', ['ngMaterial', 'ngAnimate']);
+app.constant('ENDPOINT_URI', 'http://localhost:3000/api/');
+app.service('QuizzesModel', function($http, ENDPOINT_URI) {
+  var service = this,
+  path = 'quizzes/';
+});
 
 app.config(function($mdThemingProvider, $mdIconProvider){
 

@@ -100,13 +100,16 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">{{quizzes[current].title}}</span>
-              <span class="md-subhead">{{quizzes[current].subtitle}}</span>
+              <span class="md-subhead">{{quizzes[current].question}}</span>
             </md-card-title-text>
-
-            <md-card-title-media>
-              <div class="md-media-lg card-media">{{cards[current].pic}}</div>
-            </md-card-title-media>
           </md-card-title>
+
+          <md-radio-group flex layout-align="center center">
+            <md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
+            <md-radio-button value="Banana"> Banana </md-radio-button>
+            <md-radio-button value="Mango">Mango</md-radio-button>
+          </md-radio-group>
+
           <md-card-actions layout="row" layout-align="end center">
             <md-button class="md-accent" ng-click="pass()">Pass (0pts)</md-button>
             <md-button class="md-raised md-primary" ng-click="nextCard()">{{quizzes[current].title}}</md-button>
@@ -123,7 +126,7 @@
 
 
 
-      <md-button class="md-raised md-primary" ng-click="launchDemoQuiz()">Launch Demo Quiz</md-button>
+      <md-button class="md-raised md-primary" ng-click="launchDemoQuiz()" ng-hide="demoStart">Launch Demo Quiz</md-button>
 
     </md-content>
 

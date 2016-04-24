@@ -103,19 +103,14 @@ app.controller('TutorialCardController', function($scope) {
 });
 
 app.controller('QuizController', function($scope) {
+  $scope.current = 0;
 
-  /*
   $scope.quizzes = [{
     title: 'Software Engineering Basics',
-    questions: [{
-      'For which of the following projects does AGILE seem appropriate?',
-      'What is loose coupling?',
-      'During what phase should unit testing occur?',
-      'What year is it?']
-    }
+    questions: 'hi'
 
+  }];
 
-  }]; */
 
   $scope.nextCard = function() {
     $scope.current = ($scope.current + 1) % 4; //Each quiz only has 4 questions right now
