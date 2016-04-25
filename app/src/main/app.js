@@ -12,6 +12,24 @@ app.service('QuizzesModel', function($http, ENDPOINT_URI) {
   path = 'quizzes/';
 });
 
+app.directive('syncFocusWith', function($timeout, $rootScope) {
+  return {
+    restrict: 'A',
+    scope: {
+      focusValue: "=syncFocusWith"
+    },
+    link: function($scope, $element, attrs) {
+      $scope.$watch("focusValue", function(currentValue, previousValue) {
+        if (currentValue === true && !previousValue) {
+          $element[0].focus();
+        } else if (currentValue === false && previousValue) {
+          $element[0].blur();
+        }
+      })
+    }
+  }
+});
+
 app.config(function($mdThemingProvider, $mdIconProvider){
 
         $mdIconProvider
@@ -24,6 +42,7 @@ app.config(function($mdThemingProvider, $mdIconProvider){
             .icon("phone"      , "./assets/svg/phone.svg"       , 512);
 
             var quizzuPrimaryMap = $mdThemingProvider.extendPalette('green', {
+              'default' : '27ae60',
               '500': '27ae60',
               'contrastDefaultColor': 'light'
 

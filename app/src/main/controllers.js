@@ -102,19 +102,129 @@ app.controller('TutorialCardController', function($scope) {
 
 });
 
-app.controller('QuizController', function($scope) {
+app.controller('ToastController', function($scope, $mdToast, $mdDialog) {
+  $scope.closeToast = function() {
+        if (isDlgOpen) return;
+        $mdToast
+          .hide()
+          .then(function() {
+            isDlgOpen = false;
+          });
+      };
+});
+
+/* START QUIZ CONTROLLER */
+app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout) {
   $scope.current = 0;
+  $scope.validation = 'unchecked';
 
-  $scope.quizzes = [{
+  //This is NOT the best way to store quiz data, figure something better out
+  $scope.quizzes = [
+  {
     title: 'Software Engineering Basics',
-    questions: 'hi'
+    question: 'Which of the following would be best suited for an AGILE development cycle?',
+    answers: [ 'Spaceship','Skyscraper','Mobile Social Network',
+               'Operating System' ],
+    correct: 2, // Index 0, 1, 2, or 3
+    button: 'Next'
+  },
 
-  }];
+  {
+    title: 'Software Engineering Basics',
+    question: 'What is your name?',
+    answers: [ 'Kittens','A dump truck','I dunno',
+               'Bob' ],
+    correct: 3, // Index 0, 1, 2, or 3
+    button: 'Finish'
+  }
+];
 
 
   $scope.nextCard = function() {
     $scope.current = ($scope.current + 1) % 4; //Each quiz only has 4 questions right now
+
+    //Reset the colors of the buttons when we move through the quiz
+    for(i = 0; i < 4; i++)
+    {
+      document.getElementById(i).className = document.getElementById(i).className.replace(/\bincorrect\b/,'');
+      document.getElementById(i).className = document.getElementById(i).className.replace(/\bcorrect\b/,'');
+    }
   };
 
+  $scope.clickAns = function(chosenAnswerIndex, event) {
+    $scope.currentQuiz = $scope.quizzes[$scope.current];
+    $scope.chosenAnswer = $scope.currentQuiz.answers[chosenAnswerIndex];
+    btnId = event.currentTarget.id;
 
+    if(chosenAnswerIndex == $scope.currentQuiz.correct)
+    {
+      //alert('CORRECT');
+      //highlight the button green
+      document.getElementById(btnId).className +=' md-hue-1'; //This is green
+      console.log('Correct Answer Selected');
+
+      //Correct Answer Dialog
+      $scope.openDialogCorrect();
+      //$scope.openToast();
+
+    }
+
+    else
+    {
+      //alert('Incorrect');
+      //highlight the button red
+      console.log('Incorrect Answer Selected');
+      document.getElementById(btnId).className +=' incorrect'; //Change selected button to red
+      document.getElementById($scope.currentQuiz.correct).className += ' correct'; //Show correct answer
+
+      //Incorrect Answer Dialog
+      $scope.openDialogIncorrect();
+    }
+
+  };
+
+  $scope.openDialogCorrect = function() {
+    var correctDialog = $mdDialog.confirm()
+                  .title('Correct!')
+                  .textContent('+10pts')
+                  .ok('Nice!')
+                  .openFrom('#\\' + btnId)
+                  .clickOutsideToClose(true);
+
+    $mdDialog.show(correctDialog).then(function() {
+                     $scope.nextCard();
+                     }, function() {
+                        $scope.nextCard();
+                  });
+};
+
+  $scope.openDialogIncorrect = function() {
+    var correctDialog = $mdDialog.confirm()
+                  .title('Aww, dang!')
+                  .textContent('No points awarded')
+                  .ok('Move on')
+                  .openFrom('#\\' + btnId)
+                  .clickOutsideToClose(true);
+
+    $mdDialog.show(correctDialog).then(function() {
+                     $scope.nextCard();
+                     }, function() {
+                        $scope.nextCard();
+                  });
+  };
+
+  //This function has not been used anywhere yet
+  //I want to have colored toasts instead of dialogs
+  $scope.openToast = function() {
+    $mdToast.show(
+      $mdToast.simple()
+        .textContent('Toast example yo')
+        .theme('create one in app.js using $themeprovider or whatever')
+      );
+
+
+
+    console.log('toasting');
+  };
 });
+/* END QUIZ CONTROLLER */

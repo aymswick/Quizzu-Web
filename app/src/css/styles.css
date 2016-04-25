@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 .md-button {
   text-transform: capitalize;
 }
@@ -7,18 +11,84 @@
 }
 
 .card {
+  transform: rotate(360deg);
+}
 
+.card-media {
+  background-color: #999999;
 }
 
 .card:hover {
-  transform: rotate(360deg);
   background: rgba(52, 152, 219, .8);
   color: white;
 }
 
 .rotate {
-  transition: all 0.5s ease-in-out;
+  transition: all 3s ease-in-out;
 }
 .rotate:hover {
-  transition: all 1s ease-in-out;
+  transition: all 3s ease-in-out;
+}
+
+.quiz-button:hover {
+  background: rgba(52, 152, 219, .8) !important;
+}
+
+.quiz-card {
+  -webkit-transition:all linear 0.8s;
+  transition:all linear 0.8s;
+}
+
+.quiz-card.ng-hide {
+  opacity:0;
+
+}
+
+.correct {
+  background-color: #2ecc71 !important;
+}
+
+.incorrect {
+  background-color: #c0392b !important;
+}
+
+.md-toast.md-success-toast-theme {
+  .md-toast-content {
+    background-color: red !important;
+  }
+}
+
+/* Custom Animation Rules */
+.slideUp {
+	animation-name: slideUp;
+	-webkit-animation-name: slideUp;
+
+	animation-duration: 1s;
+	-webkit-animation-duration: 1s;
+
+	animation-timing-function: ease;
+	-webkit-animation-timing-function: ease;
+
+	visibility: visible !important;
+}
+
+@keyframes slideUp {
+	0% {
+		transform: translateY(100%);
+	}
+	50%{
+		transform: translateY(-8%);
+	}
+	65%{
+		transform: translateY(4%);
+	}
+	80%{
+		transform: translateY(-4%);
+	}
+	95%{
+		transform: translateY(2%);
+	}
+	100% {
+		transform: translateY(0%);
+	}
 }

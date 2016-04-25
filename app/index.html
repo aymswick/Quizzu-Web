@@ -80,11 +80,11 @@
               <span class="md-headline">{{cards[current].title}}</span>
               <span class="md-subhead">{{cards[current].subtitle}}</span>
             </md-card-title-text>
-
             <md-card-title-media>
-              <div class="md-media-lg card-media">{{cards[current].pic}}</div>
+              <div class="md-media-lg card-media"></div>
             </md-card-title-media>
           </md-card-title>
+
           <md-card-actions layout="row" layout-align="end center">
             <md-button class="md-accent" ng-click="previousCard()">Previous</md-button>
             <md-button class="md-raised md-primary" ng-click="nextCard()">{{cards[current].button}}</md-button>
@@ -95,8 +95,8 @@
 
         <!-- Demo Quiz Cards -->
         <div flex flex-xs flex-gt-xs="100" layout="row"
-             layout-align="center top" ng-controller="QuizController as quiz" ng-show="demoStart">
-        <md-card flex md-theme="default" class="card rotate">
+             layout-align="center top" ng-controller="QuizController as quiz" class="quiz-card" ng-show="demoStart">
+        <md-card flex md-theme="default" id='quizCard'>
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">{{quizzes[current].title}}</span>
@@ -104,15 +104,17 @@
             </md-card-title-text>
           </md-card-title>
 
-          <md-radio-group flex layout-align="center center">
-            <md-radio-button value="Apple" class="md-primary">Apple</md-radio-button>
-            <md-radio-button value="Banana"> Banana </md-radio-button>
-            <md-radio-button value="Mango">Mango</md-radio-button>
-          </md-radio-group>
+          <div flex layout="column">
+            <md-button flex id='0' class="md-raised md-accent quiz-button" ng-click="clickAns(0, $event)">{{quizzes[current].answers[0]}}</md-button>
+            <md-button flex id='1' class="md-raised md-accent quiz-button" ng-click="clickAns(1, $event)">{{quizzes[current].answers[1]}}</md-button>
+            <md-button flex id='2' class="md-raised md-accent quiz-button" ng-click="clickAns(2, $event)">{{quizzes[current].answers[2]}}</md-button>
+            <md-button flex id='3' class="md-raised md-accent quiz-button" ng-click="clickAns(3, $event)">{{quizzes[current].answers[3]}}</md-button>
+          </div>
+
 
           <md-card-actions layout="row" layout-align="end center">
             <md-button class="md-accent" ng-click="pass()">Pass (0pts)</md-button>
-            <md-button class="md-raised md-primary" ng-click="nextCard()">{{quizzes[current].title}}</md-button>
+            <md-button class="md-raised md-primary" ng-click="nextCard()">{{quizzes[current].button}}</md-button>
           </md-card-actions>
         </md-card>
 
