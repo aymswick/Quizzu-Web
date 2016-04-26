@@ -112,94 +112,41 @@ app.controller('ToastController', function($scope, $mdToast, $mdDialog) {
           });
       };
 });
-/*
-app.controller('jsonCtrl', function($scope, $http){
-    $http.get('data.json').success(function (data){
-        $scope.quiz = data;
-    });
-
-    $scope.addQuestion = function(){
-        $scope.quiz.push({ title:$scope.empName, question:$scope.question, answers:$scope.answers,
-          correct: $scope.correct, button: $scope.button});
-    }
-
-    $scope.getTotalQuestions    =   function(){
-        return $scope.quiz.length;
-    }
-
-    $scope.reversedMessage  =   function(){
-        return $scope.empName.split("").reverse().join("");
-    }
-
-});
-
-app.service("quizService", function($http, $q)
-{
-  var deferred = $q.defer();
-  $http.get('./src/main/data.json').then(function(data)
-{
-  deferred.resolve(data);
-});
-
-this.getQuestions = function ()
-{
-  return deferred.promise;
-}
-})
-
-.controller("quizCtrl", function($scope, quizService)
-{
-  car promise = quizService.getQuestions();
-  promise.then(function(data)
-  {
-    $scope.quiz = data;
-    console.log($scope.quiz);
-  });
-})
-*/
-
 
 /* START QUIZ CONTROLLER */
 app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout, $http) {
   $scope.current = 0;
   $scope.validation = 'unchecked';
-/*
-  $scope.quizzes = [
-  {
-    title: 'Software Engineering Basics',
-    question: 'Which of the following would be best suited for an AGILE development cycle?',
-    answers: [ 'Spaceship','Skyscraper','Mobile Social Network',
-               'Operating System' ],
-    correct: 2, // Index 0, 1, 2, or 3
-    button: 'Next'
-  }
-  ];
-*/
+
+  /* LOAD JSON FILE DATA */
   $http.get('./src/main/data.json').success(function (data){
       $scope.quizzes = data;
   });
 
+  /* ADD QUIZ QUESTION */
   $scope.addQuestion = function(){
       $scope.quizzes.push({ title:$scope.title, question:$scope.question, answers:$scope.answers,
         correct: $scope.correct, button: $scope.button});
   }
-
-  $scope.getTotalQuestions    =   function(){
+  /* GET TOTAL QUIZ QUESTIONS */
+  $scope.getTotalQuestions = function(){
       return $scope.quizzes.length;
   }
 
-  $scope.reversedMessage  =   function(){
+  /* REVERSE QUIZ QUESTION MESSAGE */
+  $scope.reversedMessage = function(){
       return $scope.title.split("").reverse().join("");
   }
 
+    $scope.nextCard = function() {
+    $scope.current = ($scope.current + 1) % $scope.quizzes.length;
 
-  //This is NOT the best way to store quiz data, figure something better out
-
-  $scope.nextCard = function() {
-    $scope.current = ($scope.current + 1) % 4; //Each quiz only has 4 questions right now
+    $scope.previousCard = function() {
+      $scope.current = ($scope.current - 1) % $scope.quizzes.length;
+    };
 
     //Reset the colors of the buttons when we move through the quiz
-    for(i = 0; i < 4; i++)
+    for(i = 0; i <= $scope.getTotalQuestions(); i++)
     {
       document.getElementById(i).className = document.getElementById(i).className.replace(/\bincorrect\b/,'');
       document.getElementById(i).className = document.getElementById(i).className.replace(/\bcorrect\b/,'');
@@ -276,8 +223,6 @@ app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout,
         .textContent('Toast example yo')
         .theme('create one in app.js using $themeprovider or whatever')
       );
-
-
 
     console.log('toasting');
   };

@@ -30,6 +30,7 @@
     <!--Quizzu Files MUST GO AFTER ANGULAR FRAMEWORK SCRIPTS ARE CALLED -->
     <script src="./src/main/app.js"></script>
       <script src="./src/main/controllers.js"></script>
+      <script src="./src/main/data.json"></script>
 
   </head>
 
@@ -113,6 +114,7 @@
 
 
           <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-accent" ng-click="previousCard()">Previous</md-button>
             <md-button class="md-accent" ng-click="pass()">Pass (0pts)</md-button>
             <md-button class="md-raised md-primary" ng-click="nextCard()">{{quizzes[current].button}}</md-button>
           </md-card-actions>
@@ -121,10 +123,13 @@
         </div>
 
 
-
       </div> <!-- End Main Content Div -->
-
-
+<!--
+    <md-button class="md-raised md-primary" ng-click="launchQuiz_1()" ng-hide="demoStart">Quiz 1</md-button>
+    <md-button class="md-raised md-primary" ng-click="launchQuiz_2()" ng-hide="demoStart">Quiz 2</md-button>
+    <md-button class="md-raised md-primary" ng-click="launchQuiz_3()" ng-hide="demoStart">Quiz 3</md-button>
+    <md-button class="md-raised md-primary" ng-click="launchQuiz_4()" ng-hide="demoStart">Quiz 4</md-button>
+-->
 
 
 
