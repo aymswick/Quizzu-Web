@@ -141,6 +141,10 @@ app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout)
 ];
 
 
+  $scope.getCurrentScore = function() {
+    return $scope.score;
+  };
+
   $scope.nextCard = function() {
     $scope.current = ($scope.current + 1) % 4; //Each quiz only has 4 questions right now
 
@@ -163,7 +167,7 @@ app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout)
       document.getElementById(btnId).className +=' md-hue-1'; //This is green
       console.log('Correct Answer Selected');
       $scope.openToast('correct');
-      $scope.score++;
+      $scope.score += 10;
       //$scope.openDialog('correct');
 
     }
@@ -222,6 +226,7 @@ app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout)
       $mdToast.show(
         $mdToast.simple()
           .textContent('You are correct! +10 points')
+          .position('bottom', 'bottom')
           .theme('success-toast')
         );
     }
@@ -231,6 +236,7 @@ app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout)
       $mdToast.show(
         $mdToast.simple()
           .textContent('You are wrong! No points awarded.')
+          .position('bottom', 'bottom')
           .theme('error-toast')
         );
     }

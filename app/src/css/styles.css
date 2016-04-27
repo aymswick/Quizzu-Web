@@ -34,6 +34,10 @@ body {
   transition: all 3s ease-in-out;
 }
 
+.score-card {
+  width: 200px;
+}
+
 .quiz-card {
   -webkit-transition:all linear 0.8s;
   transition:all linear 0.8s;
@@ -71,6 +75,20 @@ md-toast.md-error-toast-theme .md-toast-content {
   background-color: #c0392b;
   font-size: 1.5em;
   text-align: center;
+}
+
+md-tab {
+  height: 500px !important;
+}
+
+md-tab-item {
+  max-width:none !important;
+}
+
+md-pagination-wrapper {
+  width: auto !important;
+
+
 }
 
 
