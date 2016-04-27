@@ -11,6 +11,7 @@ app.controller('MainController', function($scope, $mdSidenav) {
   $scope.data = {message: 'Hello'};
   $scope.loggedIn = false;
   $scope.demoStart = false;
+  $scope.addQuestion = false;
 
   //This is how we define new functional behavior
   $scope.openLeftMenu = function openLeftMenu() {
@@ -20,6 +21,13 @@ app.controller('MainController', function($scope, $mdSidenav) {
   $scope.launchDemoQuiz = function launchDemoQuiz() {
     $scope.demoStart = true;
     $scope.loggedIn = true;
+    $scope.addQuestion = false;
+  };
+
+  $scope.launchAddQuestion = function launchAddQuestion() {
+    $scope.addQuestion = true;
+    $scope.loggedIn = true;
+    $scope.demoStart = false;
   };
 
 
@@ -60,7 +68,6 @@ app.controller('TutorialCardController', function($scope) {
     subtitle: 'the social trivia game for college students!',
     button: 'Next',
     pic: '' //put something here
-
   },
 
   {
@@ -113,46 +120,72 @@ app.controller('ToastController', function($scope, $mdToast, $mdDialog) {
       };
 });
 
-/* START QUIZ CONTROLLER */
-app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout) {
-  $scope.current = 0;
-  $scope.validation = 'unchecked';
-  $scope.score = 0;
+/* ADD QUESTION CONTROLLER */
+app.controller('AddQuestionController', ['$scope', function($scope) {
+      $scope.userQuestions = {};
 
-  //This is NOT the best way to store quiz data, figure something better out
-  $scope.quizzes = [
-  {
-    title: 'Software Engineering Basics',
-    question: 'Which of the following would be best suited for an AGILE development cycle?',
-    answers: [ 'Spaceship','Skyscraper','Mobile Social Network',
-               'Operating System' ],
-    correct: 2, // Index 0, 1, 2, or 3
-    button: 'Next'
-  },
+      $scope.save = function(question) {
+        $scope.userQuestions = angular.copy(question);
+      };
 
-  {
-    title: 'Software Engineering Basics',
-    question: 'What is your name?',
-    answers: [ 'Kittens','A dump truck','I dunno',
-               'Bob' ],
-    correct: 3, // Index 0, 1, 2, or 3
-    button: 'Finish'
-  }
-];
+    }]);
 
+    /*
+  $scope.question = [
+    "title": "Quiz",
+    "question": "What is the moon made of?",
+    "answers": [ "Cheese","Rocks","Money", "Candy" ],
+    "correct": 0,
+    "button": "Next"
+  ];
+  $scope.save = function() {
+    $scope.msg = 'Data sent: '+ JSON.stringify($scope.question);
+  };
+});
+*/
+  /* START QUIZ CONTROLLER */
+  app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout, $http) {
+    $scope.current = 0;
+    $scope.validation = 'unchecked';
+    $scope.score = 0;
 
-  $scope.getCurrentScore = function() {
-    return $scope.score;
+    $http.get('./src/main/data.json').success(function (data){
+        $scope.quizzes = data;
+    });
+
+    /* ADD QUESTION */
+    $scope.addQuestion = function(){
+        $scope.quizzes.push({ title:$scope.title, question:$scope.question, answers:$scope.answers,
+          correct: $scope.correct, button: $scope.button});
+    }
+
+    /* QUESTION COUNT*/
+    $scope.getTotalQuestions    =   function(){
+        return $scope.quizzes.length;
+    }
+
+    /* QUESTION TITLE REVERSE */
+    $scope.reversedMessage  =   function(){
+        return $scope.quizzes.title.split("").reverse().join("");
+    }
+
+    $scope.incrementScore = function(){
+      return $scope.score = $scope.score + 1;
+    }
+
+    $scope.getCurrentScore = function() {
+      return $scope.score;
   };
 
   $scope.nextCard = function() {
-    $scope.current = ($scope.current + 1) % 4; //Each quiz only has 4 questions right now
+    $scope.current = ($scope.current + 1) % $scope.getTotalQuestions(); //Each quiz only has 4 questions right now
 
     //Reset the colors of the buttons when we move through the quiz
     for(i = 0; i < 4; i++)
     {
       document.getElementById(i).className = document.getElementById(i).className.replace(/\bincorrect\b/,'');
       document.getElementById(i).className = document.getElementById(i).className.replace(/\bcorrect\b/,'');
+      document.getElementById(i).className = document.getElementById(i).className.replace(/\bmd-hue-1\b/,'');
     }
   };
 
@@ -169,7 +202,8 @@ app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout)
       $scope.openToast('correct');
       $scope.score += 10;
       //$scope.openDialog('correct');
-
+      console.log($scope.score);
+      document.getElementById("score").innerHTML = "Score: " + $scope.score; // set html element
     }
 
     //Answer = INCORRECT
