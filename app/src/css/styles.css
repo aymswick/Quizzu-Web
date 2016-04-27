@@ -6,6 +6,10 @@ body {
   text-transform: capitalize;
 }
 
+.md-button:focus {
+
+}
+
 .md-subhead {
   color: #7f8c8d;
 }
@@ -30,13 +34,13 @@ body {
   transition: all 3s ease-in-out;
 }
 
-.quiz-button:hover {
-  background: rgba(52, 152, 219, .8) !important;
-}
-
 .quiz-card {
   -webkit-transition:all linear 0.8s;
   transition:all linear 0.8s;
+}
+
+.quiz-button {
+  /*MAKE TEXT BIGGER*/
 }
 
 .quiz-card.ng-hide {
@@ -52,11 +56,24 @@ body {
   background-color: #c0392b !important;
 }
 
-.md-toast.md-success-toast-theme {
-  .md-toast-content {
-    background-color: red !important;
-  }
+md-toast.md-success-toast-theme .md-toast-content {
+  background-color: #2ecc71;
+  font-size: 1.5em;
+  text-align: center;
+  width: 100% !important;
 }
+
+md-toast {
+    max-width: 100% !important;
+}
+
+md-toast.md-error-toast-theme .md-toast-content {
+  background-color: #c0392b;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+
 
 /* Custom Animation Rules */
 .slideUp {

@@ -117,6 +117,7 @@ app.controller('ToastController', function($scope, $mdToast, $mdDialog) {
 app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout) {
   $scope.current = 0;
   $scope.validation = 'unchecked';
+  $scope.score = 0;
 
   //This is NOT the best way to store quiz data, figure something better out
   $scope.quizzes = [
@@ -156,74 +157,83 @@ app.controller('QuizController', function($scope, $mdDialog, $mdToast, $timeout)
     $scope.chosenAnswer = $scope.currentQuiz.answers[chosenAnswerIndex];
     btnId = event.currentTarget.id;
 
+    //Answer = CORRECT
     if(chosenAnswerIndex == $scope.currentQuiz.correct)
     {
-      //alert('CORRECT');
-      //highlight the button green
       document.getElementById(btnId).className +=' md-hue-1'; //This is green
       console.log('Correct Answer Selected');
-
-      //Correct Answer Dialog
-      $scope.openDialogCorrect();
-      //$scope.openToast();
+      $scope.openToast('correct');
+      $scope.score++;
+      //$scope.openDialog('correct');
 
     }
 
+    //Answer = INCORRECT
     else
     {
-      //alert('Incorrect');
       //highlight the button red
       console.log('Incorrect Answer Selected');
       document.getElementById(btnId).className +=' incorrect'; //Change selected button to red
       document.getElementById($scope.currentQuiz.correct).className += ' correct'; //Show correct answer
-
-      //Incorrect Answer Dialog
-      $scope.openDialogIncorrect();
+      $scope.openToast('incorrect');
+      //$scope.openDialog('incorrect');
     }
 
   };
 
-  $scope.openDialogCorrect = function() {
-    var correctDialog = $mdDialog.confirm()
-                  .title('Correct!')
-                  .textContent('+10pts')
-                  .ok('Nice!')
-                  .openFrom('#\\' + btnId)
-                  .clickOutsideToClose(true);
+  $scope.openDialog = function(type) {
+    if(type == 'correct')
+    {
+      var correctDialog = $mdDialog.confirm()
+                    .title('Correct!')
+                    .textContent('+10pts')
+                    .ok('Nice!')
+                    .openFrom('#\\' + btnId)
+                    .clickOutsideToClose(true);
 
-    $mdDialog.show(correctDialog).then(function() {
-                     $scope.nextCard();
-                     }, function() {
-                        $scope.nextCard();
-                  });
+      $mdDialog.show(correctDialog).then(function() {
+                       $scope.nextCard();
+                       }, function() {
+                          $scope.nextCard();
+                    });
+    }
+
+    else if(type == 'incorrect')
+    {
+      var incorrectDialog = $mdDialog.confirm()
+                    .title('Aww, dang!')
+                    .textContent('No points awarded')
+                    .ok('Move on')
+                    .openFrom('#\\' + btnId)
+                    .clickOutsideToClose(true);
+
+      $mdDialog.show(incorrectDialog).then(function() {
+                       $scope.nextCard();
+                       }, function() {
+                          $scope.nextCard();
+                    });
+    }
+
 };
 
-  $scope.openDialogIncorrect = function() {
-    var correctDialog = $mdDialog.confirm()
-                  .title('Aww, dang!')
-                  .textContent('No points awarded')
-                  .ok('Move on')
-                  .openFrom('#\\' + btnId)
-                  .clickOutsideToClose(true);
+  $scope.openToast = function(type) {
+    if(type == 'correct')
+    {
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent('You are correct! +10 points')
+          .theme('success-toast')
+        );
+    }
 
-    $mdDialog.show(correctDialog).then(function() {
-                     $scope.nextCard();
-                     }, function() {
-                        $scope.nextCard();
-                  });
-  };
-
-  //This function has not been used anywhere yet
-  //I want to have colored toasts instead of dialogs
-  $scope.openToast = function() {
-    $mdToast.show(
-      $mdToast.simple()
-        .textContent('Toast example yo')
-        .theme('create one in app.js using $themeprovider or whatever')
-      );
-
-
-
+    else if(type == 'incorrect')
+    {
+      $mdToast.show(
+        $mdToast.simple()
+          .textContent('You are wrong! No points awarded.')
+          .theme('error-toast')
+        );
+    }
     console.log('toasting');
   };
 });

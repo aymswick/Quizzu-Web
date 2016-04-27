@@ -40,7 +40,7 @@
     <!-- Top Toolbar -->
     <md-toolbar layout="row" class="md-whiteframe-z2">
       <div class="md-toolbar-tools">
-        <md-button id="menuButton" class="menu" hide-gt-sm aria-label="Open Menu" ng-click="openLeftMenu()">
+        <md-button id="menuButton" class="menu" aria-label="Open Menu" ng-click="openLeftMenu()">
           <md-icon md-svg-icon="menu" ></md-icon>
         </md-button>
         <span flex></span>
@@ -53,7 +53,7 @@
 
 
     <!-- Sidenav Menu -->
-    <md-sidenav md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-sidenav md-component-id="left" class="md-sidenav-left">
       <md-toolbar>
        <h1 class="md-toolbar-tools">Quizzu Menu</h1>
       </md-toolbar>
@@ -91,6 +91,22 @@
           </md-card-actions>
         </md-card>
 
+        </div>
+
+
+        <!-- Score Card -->
+        <div flex flex-xs flex-get-xs='100' layout="column" layout-align="right right"
+          ng-controller="QuizController as quiz" class="score-card" ng-show="demoStart">
+
+          <md-card flex md-theme="default" id = 'scoreCard'>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Score: {{ score}}</span>
+              </md-card-title-text>
+            </md-card-title>
+
+
+          </md-card>
         </div>
 
         <!-- Demo Quiz Cards -->
